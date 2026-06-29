@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: finvista-rag
+  labels:
+    app: finvista-rag
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: finvista-rag
+  template:
+    metadata:
+      labels:
+        app: finvista-rag
+    spec:
+      containers:
+      - name: finvista-rag
+        image: yourusername/chatbot:latest
+        ports:
+        - containerPort: 8501
+        envFrom:
+        - configMapRef:
+            name: finvista-config
+        - secretRef:
+            name: finvista-secret
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8501
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8501
+          initialDelaySeconds: 30
+          periodSeconds: 10
