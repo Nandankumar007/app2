@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: finvista-rag
-        image: yourusername/chatbot:latest
+        image: nandankumarbr007/chatbot:latest
         ports:
         - containerPort: 8501
         envFrom:
